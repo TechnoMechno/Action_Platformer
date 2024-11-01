@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2g8hlmbbt4pv"]
+
+[ext_resource type="Script" path="res://scripts/projectile.gd" id="1_v7duv"]
+[ext_resource type="Texture2D" uid="uid://b3q57il773o2m" path="res://Assets/Sprite/Projectile/LaserBeam/test.png" id="1_y61wk"]
+
+[node name="AnimatableBody2D" type="AnimatableBody2D"]
+script = ExtResource("1_v7duv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-5.96046e-08, 0)
+scale = Vector2(0.2, 1)
+texture = ExtResource("1_y61wk")

@@ -1,0 +1,153 @@
+[gd_scene load_steps=22 format=3 uid="uid://bdl1doo8y3u11"]
+
+[ext_resource type="Texture2D" uid="uid://3x8lappgmhq6" path="res://Assets/Sprite/Character/Enemy/MeleeGoon/melee_goon.png" id="1_bx7na"]
+[ext_resource type="Script" path="res://scripts/goon.gd" id="1_i4b7m"]
+[ext_resource type="Texture2D" uid="uid://brwv710vsobsc" path="res://Assets/Sprite/Character/Enemy/MeleeGoon/stab2.png" id="3_c0hy0"]
+[ext_resource type="Script" path="res://scripts/States/State Machine.gd" id="4_mhp24"]
+[ext_resource type="Script" path="res://scripts/States/EnemyChase.gd" id="5_httw3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1je6"]
+atlas = ExtResource("1_bx7na")
+region = Rect2(0, 0, 58, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fohn"]
+atlas = ExtResource("1_bx7na")
+region = Rect2(58, 0, 58, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26qlu"]
+atlas = ExtResource("1_bx7na")
+region = Rect2(116, 0, 58, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1mr8d"]
+atlas = ExtResource("1_bx7na")
+region = Rect2(174, 0, 58, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynv03"]
+atlas = ExtResource("1_bx7na")
+region = Rect2(696, 0, 58, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u42o4"]
+atlas = ExtResource("1_bx7na")
+region = Rect2(232, 0, 58, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_najj4"]
+atlas = ExtResource("1_bx7na")
+region = Rect2(290, 0, 58, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3j5av"]
+atlas = ExtResource("1_bx7na")
+region = Rect2(348, 0, 58, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1olj"]
+atlas = ExtResource("1_bx7na")
+region = Rect2(406, 0, 58, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3nyx7"]
+atlas = ExtResource("1_bx7na")
+region = Rect2(464, 0, 58, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ey62"]
+atlas = ExtResource("1_bx7na")
+region = Rect2(522, 0, 58, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4sxr"]
+atlas = ExtResource("1_bx7na")
+region = Rect2(580, 0, 58, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c33th"]
+atlas = ExtResource("1_bx7na")
+region = Rect2(638, 0, 58, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ldcb"]
+atlas = ExtResource("3_c0hy0")
+region = Rect2(0, 0, 90, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2g1qn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1je6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fohn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26qlu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1mr8d")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ynv03")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u42o4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_najj4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3j5av")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1olj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3nyx7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ey62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w4sxr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c33th")
+}],
+"loop": true,
+"name": &"run",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ldcb")
+}],
+"loop": true,
+"name": &"stab",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cdhj2"]
+size = Vector2(24, 53)
+
+[node name="meleeGoon" type="CharacterBody2D"]
+collision_layer = 32
+collision_mask = 53
+script = ExtResource("1_i4b7m")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_2g1qn")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5.5)
+shape = SubResource("RectangleShape2D_cdhj2")
+
+[node name="State Machine" type="Node" parent="."]
+script = ExtResource("4_mhp24")
+
+[node name="EnemyChase" type="Node" parent="State Machine"]
+script = ExtResource("5_httw3")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
